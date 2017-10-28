@@ -19,11 +19,4 @@ elif num1 == 3:
     print('A = {}.\nB = {}.\nРезультат: {}'.format(a,b,Y))
 else:
     print("Такого значения нет")
-print("Нажмите любую клавишу для выхода из программы")
-element = input("")
-if element:
-    try:
-        element = float(element)
-    except ValueError:
-        print("Exit")
 
