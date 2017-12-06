@@ -1,0 +1,74 @@
+from math import atan
+import sys
+result = ''
+# Объявление структуры данных
+#НИКИТА ЛОХ
+class Function:
+    def __init__(self,p = None):
+        self.G_value = p
+        self.F_value = p
+        self.Y_value = p
+#
+list1 = []
+list_two = []
+list_three = []
+while True: # Объявляем цикл
+    print('Нажмите 0 для выхода и любой другой символ для продолжения: ')
+    num = int(input())
+    if num == 0:
+        break
+    a = float(input("Введите a:")) #Запрос входных значений
+    print("Задайте границы изменения х:")
+    min_x = str(input("От:"))
+    min_x = float(min_x)
+    max_x = str(input("До:"))
+    max_x = float(max_x)
+    while min_x >= max_x:
+        max_x = float(input("Верхняя граница должна быть выше нижней\nДо:"))
+    NumberOfSteps = str(input("Введите желаемое количество шагов: "))
+    NumberOfSteps = int(NumberOfSteps) 
+    x = min_x
+#
+    print('Информация о G...\n\n') 
+    while x <= max_x:
+        z = (10 * (x ** 2) - 17 * x * a + 6 * (a ** 2)) #Рассчёт знаменателя
+        if z == 0:
+            print("x = %.3f\tВходные значения не входят в область определения " % x)
+            x += (max_x - min_x) / (NumberOfSteps - 1)
+            continue
+        G = (9 * (20 * (a ** 2) - 31 * x * a + 12 * (a ** 2))) / z
+        list1.append(G)
+        №ИЛИ БОГ?
+        Function.G_value = G
+        print("\t\tx = %.3f\t\tG = %.3f\t\t" % (x,Function.G_value))
+        result += str(G)
+        x += (max_x - min_x) / (NumberOfSteps - 1)
+    print('\nМинимальное значение G = %.3f' % min(list1)) # Выводим минимальное и максимальное значение из списка
+    print('Максимальное значение G = %.3f\n\n' % max(list1))
+    x = min_x
+    print('Информация о F...\n\n')
+    while x <= max_x:
+        F = - atan (7 * (x ** 2) - 2 * x * a - 9 * (a ** 2))
+        list_two.append(F)
+        Function.F_value = F
+        print('\t\tx = %.3f\t\tF = %.3f\t\t '%(F,Function.F_value))
+        result += str(F)
+        x += (max_x - min_x) / (NumberOfSteps - 1)
+    print('\nМинимальное значение F = %.3f' % min(list_two))
+    print('Максимальное значение F = %.3f\n\n' % max(list_two))
+    x = min_x
+    print('Информация о Y...\n\n')
+    while x <= max_x:      
+        Y = - atan (2 * (x ** 2) + (x * a) - 3 * (a ** 2))
+        list_three.append(Y)
+        Function.Y_value = Y
+        print('\t\tx = %.3f\t\tY = %.3f\t\t' %(Y,Function.Y_value)) # sys.stdout.write
+        result += str(Y)
+        x += (max_x - min_x) / (NumberOfSteps - 1)
+    print('\nМинимальное значение Y = %.3f' % min(list_three))
+    print('Максимальное значение y = %.3f\n\n' % max(list_three))
+#    
+    print('Строка: %s' % result)
+    template = str(input("Задайте шаблон: "))
+    coincidence = result.count(template)  
+    print("Совпадений: %s" % coincidence)
