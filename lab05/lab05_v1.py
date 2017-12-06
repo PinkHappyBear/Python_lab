@@ -60,6 +60,6 @@ while num == 0: # Объявляем цикл
 #
     print('Строка: %s' % result)
     template = str(input("Задайте шаблон: "))
-    coincidence = result.count(template)  
-    print("Совпадений: %s" % coincidence)
+    uge = result.count(template)  
+    print("Совпадений: %s" % uge)
     num = int(input("Введите 1 для рассчёта G\nВведите 2 для рассчёта F\nВведите 3 для рассчёта Y\nВведите любую другую цифру для выхода\n"))
