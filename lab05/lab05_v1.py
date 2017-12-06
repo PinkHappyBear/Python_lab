@@ -1,25 +1,29 @@
 from math import atan
-from tkinter import *
+import sys
 num = 0
+result = ''
 list =[] # Заранее создаём списки.Для удобства.
 list_two = []
 list_three =[]
-while num <= 3: # Объявляем цикл
+#
+while num == 0: # Объявляем цикл
     num = int(input("Введите 1 для рассчёта G\nВведите 2 для рассчёта F\nВведите 3 для рассчёта Y\nВведите любую другую цифру для выхода\n"))
     if num > 3 or num <= 0: # Если num не 1,2,3 - выход из цикла
         break       
     a = float(input("Введите a:")) #Запрос входных значений
     print("Задайте границы изменения х:")
-    min_x = float(input("От:"))
-    max_x = float(input("До:"))
+    min_x = str(input("От:"))
+    min_x = float(min_x)
+    max_x = str(input("До:"))
+    max_x = float(max_x)
     while min_x >= max_x:
         max_x = float(input("Верхняя граница должна быть выше нижней\nДо:"))
-    NumberOfSteps = int(input("Введите желаемое количество шагов:"))
+    NumberOfSteps = str(input("Введите желаемое количество шагов: "))
+    NumberOfSteps = int(NumberOfSteps)
     x = min_x
-    result = ''
+#    
     if num == 1: # Если пользователь ввёл 1 - рассчитывает G
         print("Пожалуйста,подождите...")
-        
         while x <= max_x:
             z = (10 * (x ** 2) - 17 * x * a + 6 * (a ** 2)) #Рассчёт знаменателя
             if z == 0:
@@ -28,8 +32,8 @@ while num <= 3: # Объявляем цикл
                 continue
             G = (9 * (20 * (a ** 2) - 31 * x * a + 12 * (a ** 2))) / z
             list.append(G) # Добавляем элемент в список
-            sys.stdout.write('G = %.3f '%(G))
-            result += str(round(G, 3))
+            print('G = %.3f '%(G)) # sys.stdout.write
+            result += str(G)
             x += (max_x - min_x) / (NumberOfSteps - 1)
         print('\nМинимальное значение G = %.3f' % min(list)) # Выводим минимальное и максимальное значение из списка
         print('Максимальное значение G = %.3f' % max(list))
@@ -39,7 +43,7 @@ while num <= 3: # Объявляем цикл
             F = - atan (7 * (x ** 2) - 2 * x * a - 9 * (a ** 2))
             list_two.append(F)
             sys.stdout.write('F = %.3f '%(F))
-            result += str(round(F, 3))
+            result += str(F)
             x += (max_x - min_x) / (NumberOfSteps - 1)
         print('Минимальное значение G = %.3f' % min(list_two))
         print('Максимальное значение G = %.3f' % max(list_two))    
@@ -49,18 +53,13 @@ while num <= 3: # Объявляем цикл
             Y = - atan (2 * (x ** 2) + (x * a) - 3 * (a ** 2))
             list_three.append(Y)
             sys.stdout.write('Y = %.3f '%(Y))
-            result += str(round(Y, 3))
+            result += str(Y)
             x += (max_x - min_x) / (NumberOfSteps - 1)
         print('Минимальное значение G = %.3f' % min(list_three))
         print('Максимальное значение G = %.3f' % max(list_three))
-
+#
     print('Строка: %s' % result)
-    template = input("Задайте шаблон: ")
-    counter = 0
-    idx = result.find(template)  # Получаем индекс первого вхождения шаблона в строку
-    while idx > -1:
-        result = result[idx + 1:len(result) - 1]  # Обрезаем строку
-        counter += 1  # Увеличиваем счетчик
-        idx = result.find(template)  # Получаем новое вхождение
-    print("Совпадений: %d." % counter)
-    num = int(input("Введите 1 для рассчёта G\nВведите 2 для рассчёта F\nВведите 3 для рассчёта Y\nВведите 4 для подсчёта целых чисел\nВведите любую другую цифру для выхода\n"))
+    template = str(input("Задайте шаблон: "))
+    coincidence = result.count(template)  
+    print("Совпадений: %s" % coincidence)
+    num = int(input("Введите 1 для рассчёта G\nВведите 2 для рассчёта F\nВведите 3 для рассчёта Y\nВведите любую другую цифру для выхода\n"))
